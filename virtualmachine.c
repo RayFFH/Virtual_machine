@@ -3,8 +3,9 @@
 #include<string.h>
 #include<stdbool.h>
 
-typedef enum {
+#define NUM_REGS 4
 
+typedef enum {
 	PUSH,
 	ADD,
 	POP,
@@ -12,10 +13,7 @@ typedef enum {
 	HALT
 	}Instructions;
 	
-typedef enum {
-	A,B,C,D,E,F
-	NUM_REGISTERS
-	}Registers;
+unsigned registers[NUM_REGS]
 	
 const int executables[] = {
 	PUSH,5,
@@ -31,28 +29,41 @@ int ip = 0;
 int sp = -1;
 int stack[256];
 
+unsigned program[]=[0x1243, 0x11C2, 0x2943, 0x0232};
+
 int fetch(){
 	return program[ip];
 }
 
 
+void decode(int instruction)
+{
+	instuctionNUmber = (instruction & 0xF000) >>12;
+	Registernumber = (instruction & 0xF00 ) >>8;
+	secondndbyte_value = (instruction & 0xF0) >> 4;
+	firstbyte_value = (instruction & 0xF);
+	total_value = (instruction & 0xFF).
+}
+
+
 void eval(int instruction){
 	switch(instruction){
-	case HALT:{
+	case 0:{
+		printf("HALT\n");
 		running = false;
 		break;
 	}
-	case PUSH: {
-		sp++;
-		stack[sp] = executables[++instruction_pointer];
+	case 1: {
+		printf("load register%d with %d\n",register1,imm);
+		registers[RegisterNumber] = total_value;
 		break;
 		}
-	case POP: {
-		int value_popped = stack[sp--];
-		printf("popped %d\n", value_popped);
+	case 2: {
+		printf("add r1 and r2 into r3");
+		register[2]= register[0]+register[1]
 		break;
 	}
-	case ADD: {
+	case 3: {
 		int a = stack[sp--];
 		int b = stack[sp--};
 		int result = a + b
@@ -62,6 +73,23 @@ void eval(int instruction){
 	}
 	
 }
+
+void printRegister()
+{
+	int i;
+	printf("Registers = ");
+	for(i=0; i<NUM_REGS; i++){
+		printf("%04X":,registers[i]);
+	}
+	printf("\n");
+}
+
+void run()
+{
+	while(check)
+	{
+		printRegister();
+		int instruction = fetch()
 
 int main(){
 	while(check){
