@@ -14,7 +14,7 @@ typedef enum {
 	}Instructions;
 	
 unsigned registers[NUM_REGS]
-	
+	//Creates array for registers
 const int executables[] = {
 	PUSH,5,
 	PUSH,6,
@@ -22,15 +22,15 @@ const int executables[] = {
 	POP,
 	HALT
 };
-
+//List of functions that will be used
 int instruction_pointer = 0;
 bool check = true;
 int ip = 0;
 int sp = -1;
 int stack[256];
-
+//Stack that records instructions for program
 unsigned program[]=[0x1243, 0x11C2, 0x2943, 0x0232};
-
+//list of instructions
 int fetch(){
 	return program[ip];
 }
@@ -44,7 +44,7 @@ void decode(int instruction)
 	firstbyte_value = (instruction & 0xF);
 	total_value = (instruction & 0xFF).
 }
-
+//decodes instructions to workable parts
 
 void eval(int instruction){
 	switch(instruction){
@@ -73,7 +73,7 @@ void eval(int instruction){
 	}
 	
 }
-
+//determines what to do with each instruction
 void printRegister()
 {
 	int i;
@@ -83,7 +83,7 @@ void printRegister()
 	}
 	printf("\n");
 }
-
+//prints values inside registers
 void run()
 {
 	while(check)
@@ -98,4 +98,4 @@ int main(){
 		instruction_pointer++;
 		}
 }
-
+//fetches instructions and moves pointer to next instruction
