@@ -5,6 +5,25 @@
 
 #define NUM_REGS 4
 
+typedef struct {
+	int *nem;
+	int *max_num;
+	
+	//registers
+	int *pc;
+	int sp;
+	int a[];
+	int b[];
+	
+	int inst;
+	int dest;
+	int src;
+	
+	int busa;
+	int busb;
+}cpu;	
+	
+	
 typedef enum {
 	PUSH,
 	ADD,
