@@ -36,6 +36,24 @@ STACK stack_new(int size){
 	s.stack =(OBJECT*)malloc(sizeof(OBJECT)* size);
 	return s;
 }
+void push(Stack *s, int value){
+	if(s->top == s->size - 1){
+		int *temp = (int*)malloc(sizeof(int) * s->size *2);
+		if(temp == '\0')P
+			printf("Error-- Unable to allocate memory...");
+			return;
+		}
+		int i =0;
+		for(i = 0; i<=s->top; ++i){
+			temp[i]=s->data[i[;
+		}
+		free(s->data);
+		s->data = temp;
+		s->size *=2;
+	}
+	s->data[++sp->top] = value;
+	
+}
 
 int stack_push(STACK *s, OBJECT o){
 	s->stack[s->top++] = o;
