@@ -5,69 +5,28 @@
 
 #define NUM_REGS 4
 
-typedef struct OBJECT_t{
-	uint8_t type;
-	
-	union{
-		uint8_t u8;
-		int8_t i8;
-		uint32_t u32;
-		int32_t i32;
-	};
-}OBJECT;	
-typedef enum {
-	PUSH,
-	ADD,
-	POP,
-	SET,
-	HALT
-	}Instructions;
-	
+		
 typedef struct STACK_T {
+	int* data;
 	int top;
 	int size;
-	OBJECT *stack;
-}STACK;
-	
-STACK stack_new(int size){
-	STACK s;
-	s.top = 0;
-	s.size = size;
-	s.stack =(OBJECT*)malloc(sizeof(OBJECT)* size);
-	return s;
-}
-void push(Stack *s, int value){
-	if(s->top == s->size - 1){
-		int *temp = (int*)malloc(sizeof(int) * s->size *2);
-		if(temp == '\0')P
-			printf("Error-- Unable to allocate memory...");
-			return;
-		}
-		int i =0;
-		for(i = 0; i<=s->top; ++i){
-			temp[i]=s->data[i[;
-		}
-		free(s->data);
-		s->data = temp;
-		s->size *=2;
-	}
-	s->data[++sp->top] = value;
-	
-}
+}Stack;
 
-int stack_push(STACK *s, OBJECT o){
-	s->stack[s->top++] = o;
-	return s->top;
-}
+char instructions *[] ={
+	"PSH",
+	"ADD",
+	"POP",
+	"HLT"
+};
 
-OBJECT stack_pop(STACK*s){
-	return s->stack[--(s->top)];
-}
+char* registers[]={ 
+	"REGA",
+	"REGB",
+	"REGC"};
 
-OBJECT stack_peek(STACK *s){
-	return s->stack[s->top-1];
-}
-
+void push(Stack *sp, int value);
+int pop(Stack *sp);
+int peep(Stack *sp);
 
 int instructionNumber = 0;
 int Registernumber = 0;
@@ -86,6 +45,61 @@ int stack[256];
 unsigned program[]={0x1243, 0x11C2, 0x2943, 0x0232};
 
 //list of instructions
+	
+Stack* init(int size){
+	Stack *sp = (Stack*)malloc(sizeof(Stack));
+	if(sp=='\0'){
+		printf("Error -- Unable to allocate memory");
+		exit(1);
+	}
+	
+	sp->data = (int*) malloc(sizeof(int)*size);
+	if(sp->data == '\0'){
+		printf("Error unable to allocate memory");
+		exit(1);
+	}
+	sp->top = -1;
+	sp->size = size;
+  return sp;
+}
+
+void push(Stack *sp, int value){
+	if(sp->top == sp->size - 1){
+		int *temp = (int*)malloc(sizeof(int) * sp->size *2);
+		if(temp == '\0'){
+			printf("Error-- Unable to allocate memory...");
+			return;
+		}
+		int i =0;
+		for(i = 0; i<=sp->top; ++i){
+			temp[i]=sp->data[i];
+		}
+		free(sp->data);
+		sp->data = temp;
+		sp->size *=2;
+	}
+	sp->data[++sp->top] = value;
+	
+}
+
+int pop(Stack* sp){
+	if(sp->top == -1){
+		return -1001;
+	}
+	else{
+		return sp->data[sp->top--];
+	}	
+}
+
+int peep(Stack* sp){
+	if(sp->top == -1){
+		return -1001;
+	}
+	else{
+		return sp->data[sp->top];
+	}	
+}
+
 int fetch(){
 	return program[instruction_pointer];
 }
@@ -137,12 +151,60 @@ void printRegisters()
 }
 //prints values inside registers
 
+int arraySize(){
+	int length = sizeof(program)/sizeof(unsigned);
+	return length;
+}
+
+int concat(int a, int b, int c)
+{
+	char s1[20];
+	char s2[20];
+	char s3[20];
+	sprintf(s1, "%d", a); 
+    sprintf(s2, "%d", b);
+    sprintf(s3, "%d", c);  
+    strcat(s1, s2); 
+    strcat(s1,s3);
+    int c = atoi(s1); 
+    return c; 
+} 
+
 int main(){
+	char instruction[16], char registername[16], char number[16]
+	int a,b,c,d;
+	char str[3];
+	int length = arraySize();
+	Stack *s1 = init(length);
 	while(check){
+		printf("Type instruction");
+		scanf("%s",str);
+		strcpy(instruction, strok(str ," "));
+		strcpy(registername, strok(str ," "));
+		strcpy(number, strok(str ," "));
+		int i;
+		for(i=0; i<3; i++){
+        if(!strcmp(instruction,instructions[i]))
+        {
+            printf("Your instruction is: %d\n", instruction[i]);
+            a = i;
+            }
+        }
+        for(i=0; i<3; i++){
+        if(!strcmp(registername,register[i]))
+        {
+            printf("Your instruction is: %d\n", instruction[i]);
+            b = i;
+            }
+		}
+		c = number - '0';
+		d = concat(a,b,c);
 		printRegisters();
-		int x = fetch();
+		//int x = fetch();
+		//option to input instructions or to preset them in code.
+		push(s1,d);
 		instruction_pointer++;
-		decode(x);
+		decode(d);
 		eval();
 		}
 }
