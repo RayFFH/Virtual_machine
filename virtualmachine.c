@@ -4,7 +4,7 @@
 #include<stdbool.h>
 
 #define NUM_REGS 4
-
+//virtual machine
 		
 typedef struct STACK_T {
 	int* data;
